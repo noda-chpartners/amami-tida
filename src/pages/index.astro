@@ -1,17 +1,286 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import Layout from "../layouts/Layout.astro";
+import SunMark from "../components/SunMark.astro";
+import { course, dishes, mapEmbed, mapHref, restaurant } from "../data/site";
+import heroImage from "../assets/images/torimesi02.jpg";
+import storyImage from "../assets/images/ro-sutopo-ku.jpg";
+import courseImage from "../assets/images/ko-su.jpg";
+import aburaImage from "../assets/images/aburaso-men.jpg";
+import toriImage from "../assets/images/torimesi.jpg";
+import nigauriImage from "../assets/images/nigauritouhuitame.jpg";
+import kakuniImage from "../assets/images/kakuni.jpg";
 
+const photos: Record<string, { image: ImageMetadata; alt: string }> = {
+  油ソーメン: { image: aburaImage, alt: "野菜と肉を絡めた油ソーメン" },
+  鶏飯: { image: toriImage, alt: "青い器に盛った鶏飯" },
+  ニガウリ豆腐炒め: { image: nigauriImage, alt: "ニガウリと豆腐、卵の炒め物" },
+  自家製皮付き豚の角煮: { image: kakuniImage, alt: "青い八角の器に盛った皮付き豚の角煮" },
+};
+
+const plates = dishes.map((dish) => ({ ...dish, ...photos[dish.name] }));
+const { phoneHref, instagram } = restaurant;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <section class="hero" id="top">
+    <div class="wrap hero__grid">
+      <div class="hero__intro">
+        <p class="hero__kicker">
+          <SunMark />
+          <span>Amami Island Cuisine</span>
+        </p>
+        <p class="hero__place">大阪・天神橋</p>
+        <h1 class="hero__title">
+          <span class="hero__name">奄美島料理てぃだ</span>
+          <span>島の夕餉を、</span>
+          <span>天神橋で。</span>
+        </h1>
+      </div>
+
+      <div class="hero__visual">
+        <p class="hero__vertical">天神橋 · 二階</p>
+        <div class="hero__frame">
+          <div class="hero__clip">
+            <Image
+              src={heroImage}
+              alt="ご飯と具材、だしを分けて出した鶏飯"
+              widths={[640, 960, 1400]}
+              sizes="(min-width: 900px) 52vw, 100vw"
+              quality={80}
+              loading="eager"
+              fetchpriority="high"
+              class="hero__img"
+            />
+          </div>
+        </div>
+        <p class="hero__caption">だしをかけていただく鶏飯</p>
+      </div>
+
+      <div class="hero__follow">
+        <p class="hero__lead">
+          大阪・天神橋で、奄美の食卓をひらく店です。鶏飯、<span class="nowrap">油ソーメン</span>、<span class="nowrap">海ぶどう</span>。徳之島から届く豚肉を、夜の席で出しています。
+        </p>
+        <div class="hero__actions">
+          <a class="btn" href={phoneHref}>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M7.1 3.6h2.2l1.3 3.2-1.7 1.2a13 13 0 0 0 6.1 6.1l1.2-1.7 3.2 1.3v2.2c0 .8-.7 1.5-1.5 1.6A15.4 15.4 0 0 1 5.5 5.1c.1-.8.8-1.5 1.6-1.5Z"
+              ></path>
+            </svg>
+            <span>06-6881-3639</span>
+          </a>
+          <a class="btn btn--line" href="#menu">料理を見る</a>
+        </div>
+        <ul class="hero__facts">
+          <li>18:00〜23:00</li>
+          <li>月・火 定休</li>
+          <li>天神橋筋六丁目 徒歩3分</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section story" id="story">
+    <div class="wrap story__grid">
+      <figure class="story__figure reveal">
+        <Image
+          src={storyImage}
+          alt="徳之島産豚の炙りローストポーク"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 900px) 46vw, 100vw"
+          quality={80}
+        />
+        <figcaption>徳之島産豚の炙りローストポーク</figcaption>
+      </figure>
+      <div class="story__copy reveal">
+        <p class="eyebrow">About</p>
+        <h2>てぃだは、太陽のこと。</h2>
+        <div class="prose">
+          <p>
+            奄美の言葉で、太陽をてぃだと呼びます。その名の店を、天神橋筋の川合ビル2階に開いています。
+          </p>
+          <p>
+            皿にのるのは、島の家庭で食べられてきたものです。だしをかけていただく鶏飯。野菜と肉を絡めた油ソーメン。苦みの残るニガウリ。皮付きのまま煮込んだ豚。粒の弾ける海ぶどう。
+          </p>
+          <p>
+            席は約100。18時に開いて、23時に閉じます。休みは月曜と火曜です。祝日やイベントの日は、営業が変わることがあります。
+          </p>
+        </div>
+        <ul class="stats">
+          <li>
+            <span>営業</span>
+            <strong>18:00〜23:00</strong>
+            <small>平日・土日祝</small>
+          </li>
+          <li>
+            <span>定休</span>
+            <strong>月・火</strong>
+            <small>祝日・イベントで変動</small>
+          </li>
+          <li>
+            <span>席数</span>
+            <strong>約100</strong>
+            <small>川合ビル2階</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section menu" id="menu">
+    <div class="wrap">
+      <div class="menu__head reveal">
+        <p class="eyebrow">Dishes</p>
+        <h2>よく選ばれる五皿</h2>
+        <p class="menu__lead">夜の注文が重なる、五つの皿です。</p>
+      </div>
+      <div class="menu__list">
+        {
+          plates.map((plate) => (
+            <article class:list={["plate", { "plate--sea": !plate.image }]}>
+              <div class="plate__media">
+                {plate.image ? (
+                  <Image
+                    src={plate.image}
+                    alt={plate.alt ?? plate.name}
+                    widths={[480, 800, 1200]}
+                    sizes="(min-width: 860px) 52vw, 100vw"
+                    quality={78}
+                  />
+                ) : (
+                  <div class="plate__sea" aria-hidden="true">
+                    <p>島の海から</p>
+                    <strong>粒のまま、食卓へ。</strong>
+                  </div>
+                )}
+              </div>
+              <div class="plate__body">
+                <p class="plate__no">{plate.no}</p>
+                <div class="plate__name">
+                  <h3>{plate.name}</h3>
+                  <span class="plate__rule" aria-hidden="true" />
+                  <p class="plate__price">
+                    {plate.price}
+                    <span>円</span>
+                  </p>
+                </div>
+                {plate.alias && <p class="plate__alias">{plate.alias}</p>}
+                <p class="plate__text">{plate.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section course" id="course">
+    <p class="course__watermark" aria-hidden="true">てぃだ</p>
+    <div class="wrap course__grid">
+      <div class="course__copy reveal">
+        <p class="eyebrow eyebrow--light">Course</p>
+        <h2>
+          徳之島ずくし
+          <span>豚しゃぶコース</span>
+        </h2>
+        <p class="course__price">
+          <span class="course__price-num">{course.priceLabel}</span>
+          <span class="course__price-unit">円<span>{course.priceNote}</span></span>
+        </p>
+        <p class="course__lead">{course.lead}</p>
+        <ul class="course__meta">
+          {course.meta.map((item) => <li>{item}</li>)}
+        </ul>
+        <ul class="course__list">
+          {course.items.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="course__note">{course.note}</p>
+        <a class="btn btn--light" href={phoneHref}>電話で予約する</a>
+      </div>
+      <figure class="course__figure reveal">
+        <Image
+          src={courseImage}
+          alt="徳之島ずくし豚しゃぶコースの食卓"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 900px) 42vw, 100vw"
+          quality={80}
+        />
+        <figcaption>徳之島ずくし 豚しゃぶコース</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section access" id="access">
+    <div class="wrap access__grid">
+      <div class="access__copy reveal">
+        <p class="eyebrow">Visit</p>
+        <h2>川合ビルの2階へ</h2>
+        <p class="access__lead">天神橋筋、川合ビルの2階です。ご予約・お問い合わせはお電話で。</p>
+        <dl class="info">
+          <div>
+            <dt>店名</dt>
+            <dd>奄美島料理てぃだ</dd>
+          </div>
+          <div>
+            <dt>住所</dt>
+            <dd>
+              〒{restaurant.postalCode}<br />
+              {restaurant.region}{restaurant.locality}天神橋5-5-32<br />
+              川合ビル2階
+            </dd>
+          </div>
+          <div>
+            <dt>電話</dt>
+            <dd><a href={phoneHref}>{restaurant.phoneDisplay}</a></dd>
+          </div>
+          <div>
+            <dt>最寄り</dt>
+            <dd>
+              JR天満駅 徒歩4分<br />
+              大阪メトロ天神橋筋六丁目駅 徒歩3分
+            </dd>
+          </div>
+          <div>
+            <dt>営業</dt>
+            <dd>
+              平日 18:00〜23:00<br />
+              土日祝 18:00〜23:00
+            </dd>
+          </div>
+          <div>
+            <dt>定休</dt>
+            <dd>
+              月曜・火曜<br />
+              <span class="info__note">祝日やイベントの日は変動することがあります</span>
+            </dd>
+          </div>
+          <div>
+            <dt>席数</dt>
+            <dd>約100席</dd>
+          </div>
+          <div>
+            <dt>SNS</dt>
+            <dd>
+              <a href={instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+      <div class="access__map reveal">
+        <iframe
+          title="奄美島料理てぃだ周辺の地図"
+          src={mapEmbed}
+          loading="lazy"
+          tabindex="-1"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <a class="access__map-link" href={mapHref} target="_blank" rel="noopener noreferrer">
+          Googleマップで経路を見る
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

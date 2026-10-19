@@ -17,6 +17,9 @@ export const restaurant = {
   streetAddress: "天神橋5-5-32 川合ビル2階",
   instagram: "https://www.instagram.com/tidataiyo/",
   tabelog: "https://tabelog.com/osaka/A2701/A270103/27009167/",
+  groupForm:
+    "https://docs.google.com/forms/d/e/1FAIpQLSfARrTfawAV8w0VY2VZ01rn6A5AezjMLurAkxLE3qN64rJPQw/viewform",
+  mapHref: "https://maps.app.goo.gl/aLhCaSsKqCzdGm6Q6",
   mapQuery: "大阪市北区天神橋5-5-32 川合ビル",
   openDays: ["Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
   opens: "18:00",
@@ -24,8 +27,7 @@ export const restaurant = {
   ogImageAlt: "奄美島料理てぃだの徳之島ずくし豚しゃぶコース",
 } as const;
 
-export const mapHref =
-  "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(restaurant.mapQuery);
+export const mapHref = restaurant.mapHref;
 
 export const mapEmbed =
   "https://maps.google.com/maps?q=" + encodeURIComponent(restaurant.mapQuery) + "&hl=ja&z=17&output=embed";

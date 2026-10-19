@@ -1,7 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import "../styles/global.scss";
+import "../styles/paper.scss";
 import "lenis/dist/lenis.css";
-import SunMark from "../components/SunMark.astro";
+import logo from "../assets/images/logo.png";
+import { siInstagram } from "simple-icons";
 import { buildJsonLd, restaurant } from "../data/site";
 
 interface Props {
@@ -11,7 +14,7 @@ interface Props {
 
 const { title = restaurant.title, description = restaurant.description } = Astro.props;
 
-const { instagram, phoneHref } = restaurant;
+const { instagram, phoneHref, tabelog } = restaurant;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const origin = Astro.site?.origin;
 const ogImage = origin ? new URL("/ogp.jpg", origin).href : "/ogp.jpg";
@@ -27,11 +30,11 @@ const jsonLd = JSON.stringify(buildJsonLd(origin)).replace(/</g, "\\u003c");
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#fff8f1" />
+    <meta name="theme-color" content="#faf6f0" />
     <meta name="application-name" content="てぃだ" />
     <meta name="apple-mobile-web-app-title" content="てぃだ" />
     {canonical && <link rel="canonical" href={canonical} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {canonical && <link rel="sitemap" type="application/xml" href="/sitemap.xml" />}
     <meta property="og:type" content="website" />
@@ -68,31 +71,24 @@ const jsonLd = JSON.stringify(buildJsonLd(origin)).replace(/</g, "\\u003c");
 
     <header class="site-header">
       <div class="wrap site-header__inner">
-        <a class="brand" href="#top">
-          <SunMark class="brand__mark" />
-          <span class="brand__text">
-            <span class="brand__name">てぃだ</span>
-            <span class="brand__en">Amami Island Food</span>
-          </span>
+        <a class="brand" href="#top" aria-label="奄美島料理てぃだ">
+          <Image
+            src={logo}
+            alt="奄美島料理てぃだ"
+            class="brand__logo"
+            widths={[320, 480, 720]}
+            sizes="172px"
+            quality={90}
+            loading="eager"
+          />
         </a>
 
         <nav id="site-nav" class="site-nav" aria-label="主要">
-          <a href="#story">てぃだ</a>
-          <a href="#menu">料理</a>
-          <a href="#course">コース</a>
-          <a href="#access">案内</a>
+          <a href="#plates">三つの皿</a>
+          <a href="#night">夜の席</a>
+          <a class="site-nav__reserve" href={tabelog} target="_blank" rel="noopener noreferrer">ご予約</a>
           <a class="site-nav__phone" href={phoneHref}>06-6881-3639</a>
         </nav>
-
-        <a class="btn btn--header" href={phoneHref}>
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              fill="currentColor"
-              d="M7.1 3.6h2.2l1.3 3.2-1.7 1.2a13 13 0 0 0 6.1 6.1l1.2-1.7 3.2 1.3v2.2c0 .8-.7 1.5-1.5 1.6A15.4 15.4 0 0 1 5.5 5.1c.1-.8.8-1.5 1.6-1.5Z"
-            ></path>
-          </svg>
-          <span>06-6881-3639</span>
-        </a>
 
         <button
           class="nav-toggle"
@@ -111,31 +107,20 @@ const jsonLd = JSON.stringify(buildJsonLd(origin)).replace(/</g, "\\u003c");
     </main>
 
     <footer class="site-footer">
-      <div class="wrap site-footer__inner">
-        <div class="site-footer__brand">
-          <p class="site-footer__name">奄美島料理てぃだ</p>
-          <p class="site-footer__en">Amami Island Food</p>
-        </div>
-        <address class="site-footer__address">
-          〒{restaurant.postalCode} {restaurant.region}{restaurant.locality}{restaurant.streetAddress}<br />
-          <a href={phoneHref}>{restaurant.phoneDisplay}</a><br />
-          18:00〜23:00 / 月・火定休
-        </address>
-        <a class="site-footer__sns" href={instagram} target="_blank" rel="noopener noreferrer">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-            <circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
-            <circle cx="16.6" cy="7.4" r="0.8" fill="currentColor"></circle>
+      <div class="wrap site-footer__line">
+        <a class="site-footer__ig" href={instagram} target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d={siInstagram.path}></path>
           </svg>
-          <span>Instagram</span>
+          Instagram
         </a>
+        <p>© {new Date().getFullYear()} {restaurant.name}</p>
       </div>
-      <p class="wrap site-footer__copy">© {new Date().getFullYear()} {restaurant.name}</p>
     </footer>
 
     <div class="dock">
       <a href={phoneHref}>電話する</a>
-      <a href="#access">店舗案内</a>
+      <a href={tabelog} target="_blank" rel="noopener noreferrer">食べログで予約</a>
     </div>
 
     <script>

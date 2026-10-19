@@ -75,86 +75,67 @@ export function initMotion(): void {
 
     hero
       .fromTo(
-        ".hero__kicker, .hero__place",
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.65, stagger: 0.08 },
+        ".cover__photo",
+        { scale: 1.08 },
+        { scale: 1, duration: 1.6, ease: "power2.out" },
       )
       .fromTo(
-        ".hero__title span",
-        { opacity: 0, y: 28 },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 },
-        "-=0.35",
+        ".hero__line",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 },
+        0.2,
       )
       .fromTo(
         ".hero__lead",
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.75 },
-        "-=0.5",
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        0.4,
       )
       .fromTo(
         ".hero__actions",
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.6 },
-        "-=0.45",
-      )
-      .fromTo(
-        ".hero__facts",
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.55 },
-        "-=0.4",
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        0.5,
       );
 
-    gsap.fromTo(
-      ".hero__clip img",
-      { y: -10, scale: 1.08 },
-      {
-        y: 10,
-        scale: 1.08,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      },
-    );
-
-    gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 28 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 86%",
-            once: true,
-          },
-        },
-      );
+    gsap.to(".tide-wave__track--back", {
+      xPercent: -50,
+      duration: 18,
+      ease: "none",
+      repeat: -1,
     });
 
-    ScrollTrigger.batch(".plate", {
-      start: "top 88%",
-      once: true,
-      onEnter: (batch) => {
-        gsap.fromTo(
-          batch,
-          { opacity: 0, y: 32 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            stagger: 0.08,
-            ease: "power3.out",
-            overwrite: true,
-          },
-        );
-      },
+    gsap.to(".tide-wave__track:not(.tide-wave__track--back)", {
+      xPercent: -50,
+      duration: 11,
+      ease: "none",
+      repeat: -1,
+    });
+
+    gsap.utils.toArray<HTMLElement>(".drift").forEach((el) => {
+      gsap.to(el, {
+        y: -42,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.7,
+        },
+      });
+    });
+
+    gsap.utils.toArray<HTMLElement>(".drift-slow").forEach((el) => {
+      gsap.to(el, {
+        y: 28,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el.parentElement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.8,
+        },
+      });
     });
   });
 

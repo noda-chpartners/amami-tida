@@ -1,0 +1,17 @@
+---
+const front =
+  "M0 20C75 20 75 8 150 8C225 8 225 20 300 20C375 20 375 32 450 32C525 32 525 20 600 20C675 20 675 8 750 8C825 8 825 20 900 20C975 20 975 32 1050 32C1125 32 1125 20 1200 20";
+const back =
+  "M0 16C75 16 75 28 150 28C225 28 225 16 300 16C375 16 375 6 450 6C525 6 525 16 600 16C675 16 675 28 750 28C825 28 825 16 900 16C975 16 975 6 1050 6C1125 6 1125 16 1200 16";
+---
+
+<div class="tide-wave" aria-hidden="true">
+  <div class="tide-wave__track tide-wave__track--back">
+    <svg viewBox="0 0 1200 36" preserveAspectRatio="none"><path d={back}></path></svg>
+    <svg viewBox="0 0 1200 36" preserveAspectRatio="none"><path d={back}></path></svg>
+  </div>
+  <div class="tide-wave__track">
+    <svg viewBox="0 0 1200 36" preserveAspectRatio="none"><path d={front}></path></svg>
+    <svg viewBox="0 0 1200 36" preserveAspectRatio="none"><path d={front}></path></svg>
+  </div>
+</div>

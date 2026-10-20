@@ -317,7 +317,7 @@ h2 .h-light {
   letter-spacing: 0.12em;
 }
 
-.site-nav__phone {
+.site-nav__actions {
   display: none;
 }
 
@@ -1718,7 +1718,7 @@ body.nav-open .dock {
     transform: none;
   }
 
-  html.js .site-nav a {
+  html.js .site-nav > a {
     font-family: var(--serif);
     font-size: 1.7rem;
     letter-spacing: 0.08em;
@@ -1726,18 +1726,49 @@ body.nav-open .dock {
     border-bottom: 1px solid var(--line);
   }
 
-  .site-nav__phone {
-    display: inline-flex;
+  .site-nav__reserve {
+    display: none;
+  }
+
+  .site-nav__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 22px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .site-nav__actions .act {
     width: 100%;
-    margin-top: 20px;
-    border: 1px solid var(--ember) !important;
+    margin-top: 0;
+    border-color: var(--ink);
+    background: transparent;
+    color: var(--ink);
+    font-size: 0.98rem;
+    letter-spacing: 0.04em;
+    min-height: 52px;
+    padding: 8px 16px;
+  }
+
+  .site-nav__actions .act--fill {
+    border-color: var(--ember);
     background: var(--ember);
     color: var(--paper);
-    justify-content: center;
-    min-height: 52px;
-    font-family: var(--sans) !important;
-    font-size: 1rem !important;
-    letter-spacing: 0.08em !important;
+  }
+
+  .site-nav__tel {
+    font-family: var(--sans);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (max-width: 359px) {
+  .site-nav__actions .act {
+    gap: 6px;
+    padding-inline: 12px;
+    font-size: 0.86rem;
+    letter-spacing: 0;
   }
 }
 
